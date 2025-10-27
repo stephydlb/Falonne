@@ -1,0 +1,15 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Home Nail's 241 logo mark">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#D8A79A"/>
+      <stop offset="100%" stop-color="#b98274"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" rx="160" fill="#6B4E3D"/>
+  <circle cx="400" cy="400" r="260" fill="url(#g)" opacity="0.18"/>
+  <text x="400" y="440" text-anchor="middle" font-family="'Playfair Display', serif" font-size="260" fill="#FFFFFF" letter-spacing="8">HN</text>
+  <g transform="translate(400,520)">
+    <path d="M-110 0c35 0 50 40 110 40s75-40 110-40" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round"/>
+    <path d="M0-10c28 20 28 48 0 68c-28-20-28-48 0-68z" fill="#FFFFFF"/>
+  </g>
+</svg>

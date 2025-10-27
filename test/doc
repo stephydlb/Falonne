@@ -1,0 +1,164 @@
+Cahier des charges – Site Web “Falonne Service”
+1. 🧭 Présentation du projet
+
+Nom du site : Falonne Service
+Secteur : Beauté – Pédicure, Manucure et soins des mains et pieds
+Localisation : Libreville, Gabon
+Objectif principal :
+Mettre en valeur les services de beauté de Falonne Service, attirer et fidéliser la clientèle locale, et faciliter la prise de contact directe (WhatsApp, Facebook, TikTok).
+
+2. 🎯 Objectifs du site
+
+Promouvoir l’image d’un service professionnel, moderne et accueillant.
+
+Présenter clairement les offres (pédicure, manucure, soins).
+
+Mettre en avant les réalisations avec une galerie inspirante.
+
+Permettre une prise de contact instantanée.
+
+Favoriser la fidélisation grâce à la simplicité et au design.
+
+3. 🧩 Structure du site (One Page)
+3.1. Section 1 – Hero (Accueil)
+
+Grande image immersive (photo d’ambiance beauté).
+
+Slogan accrocheur : “Élégance et soin, au cœur de Libreville.”
+
+Bouton “Prendre rendez-vous” redirigeant vers WhatsApp.
+
+Animation douce d’entrée (fade-in + slide léger).
+
+3.2. Section 2 – Services
+
+Présentation claire des prestations :
+
+Manucure professionnelle
+
+Pédicure relaxante
+
+Pose de vernis et nail art
+
+Soins des mains et pieds
+
+Icônes ou images illustratives.
+
+Mise en avant des tarifs à venir (ou sur demande).
+
+CTA (call-to-action) : “Contacte-nous pour un soin personnalisé”.
+
+3.3. Section 3 – Galerie
+
+Galerie d’images responsive (3 à 6 photos).
+
+Animation légère au survol.
+
+Possibilité future d’ajouter un carrousel automatique ou un avant/après.
+
+3.4. Section 4 – Témoignages (Option améliorative)
+
+Zone avec des avis clients (réels ou à venir).
+
+Animation type “slider” automatique.
+
+Étoiles + prénoms abrégés pour humaniser sans dévoiler.
+
+3.5. Section 5 – Contact & Réseaux
+
+Boutons directs :
+
+WhatsApp (API click-to-chat)
+
+Facebook Page
+
+TikTok
+
+(optionnel) Instagram
+
+Carte simplifiée “Nous sommes à Libreville”.
+
+Lien mailto (contact@falonneservice.com
+, à prévoir).
+
+3.6. Footer
+
+Copyright © Falonne Service
+
+Mention “Site réalisé avec amour à Libreville”
+
+Politique de confidentialité (future version)
+
+4. 🎨 Charte graphique
+
+Palette :
+
+Rose poudré #F4C2C2
+
+Blanc pur #FFFFFF
+
+Doré doux #D4AF37
+
+Gris clair #F8F8F8
+
+Police : police élégante et féminine (celle du modèle Canva).
+
+Style général : doux, raffiné, minimaliste et professionnel.
+
+Formes : arrondies, fluides, inspirant confort et soin.
+
+5. 💻 Technologies
+
+HTML5 / CSS3 / JavaScript (vanilla)
+
+Design responsive (mobile first).
+
+Intégration d’animations légères (CSS ou GSAP simple).
+
+Optimisation SEO de base (balises meta, titres, alt images).
+
+Compression d’images pour chargement rapide.
+
+Intégration facile via Netlify, Vercel ou serveur Nginx.
+
+6. 🚀 Évolutions futures (ultra-amélioratives)
+
+Système de réservation en ligne (formulaire ou mini app).
+
+Espace galerie dynamique alimenté depuis Google Drive ou Firebase.
+
+Module de témoignages clients (stockés localement ou via API).
+
+Newsletter / WhatsApp broadcast pour promotions.
+
+Ajout d’un mode clair/sombre pour un effet moderne.
+
+Intégration d’un assistant beauté (chatbot) pour guider le client.
+
+Version multilingue (Français / Anglais).
+
+Optimisation SEO locale (Google Maps, mots-clés “pédicure Libreville”).
+
+Suivi Google Analytics + Pixel Facebook.
+
+Version PWA (Progressive Web App) → installation sur mobile comme appli.
+
+7. 🧾 Contenu à fournir
+
+Logo Falonne Service (ou à créer).
+
+Photos originales (services, salon, résultats).
+
+Liens officiels vers WhatsApp, Facebook, TikTok.
+
+Éventuels témoignages clients.
+
+8. 📅 Planning de développement
+Étape	Délai estimé	Description
+Design final & validation charte	1 jour	Choix couleurs, polices, visuel
+Intégration HTML/CSS	2 jours	Structure complète
+Intégration JS & animations	1 jour	CTA, animations, contact
+Ajout de tes images	1 jour	Optimisation visuelle
+Tests et déploiement	1 jour	Publication sur serveur ou Netlify
+
+Durée totale estimée : 5 à 6 jours

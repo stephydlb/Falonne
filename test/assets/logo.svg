@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Home Nail's 241 logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#D8A79A"/>
+      <stop offset="100%" stop-color="#b98274"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <rect x="24" y="24" width="208" height="208" rx="32" fill="#6B4E3D" filter="url(#s)"/>
+  <circle cx="128" cy="128" r="88" fill="url(#g)" opacity="0.18"/>
+  <g fill="#fff" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(40,34)">
+    <path d="M152 92c0 28-24 52-52 52s-52-24-52-52 24-52 52-52" fill="none" opacity=".25"/>
+    <path d="M97 126c3-14 10-33 20-49 6-10 13-18 20-25 6-6 12-10 17-12 4-2 8-2 10-1 4 2 6 7 5 12-1 5-5 12-11 19-6 8-14 16-23 24-15 13-30 23-38 27z" fill="#fff" opacity=".18"/>
+  </g>
+  <g transform="translate(0,10)">
+    <text x="128" y="128" text-anchor="middle" font-family="'Playfair Display', serif" font-size="68" fill="#FFFFFF" letter-spacing="2">HN</text>
+    <g transform="translate(128,170)">
+      <path d="M-26 0c8 0 12 10 26 10S24 0 34 0" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+      <path d="M0 -2c8 6 8 14 0 20c-8 -6-8 -14 0 -20z" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>
