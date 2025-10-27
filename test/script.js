@@ -86,14 +86,38 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Parallax hero background
   const heroSlides = Array.from(document.querySelectorAll('.hero-slides img'));
+  const hero = document.getElementById('hero');
+  const dotsWrap = document.querySelector('.hero-indicators');
   if(heroSlides.length > 1){
     let idx = heroSlides.findIndex(img=>img.classList.contains('show'));
     if(idx < 0) idx = 0;
-    setInterval(()=>{
+    let timer = null;
+    function show(i){
       heroSlides[idx].classList.remove('show');
-      idx = (idx + 1) % heroSlides.length;
+      idx = (i + heroSlides.length) % heroSlides.length;
       heroSlides[idx].classList.add('show');
-    }, 1500);
+      if(dotsWrap){
+        dotsWrap.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('active', j===idx));
+      }
+    }
+    function start(){ if(timer) return; timer = setInterval(()=> show(idx+1), 2500); }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    // Build dots
+    if(dotsWrap){
+      dotsWrap.innerHTML = heroSlides.map((_,i)=>`<button aria-label="Aller au slide ${i+1}"></button>`).join('');
+      dotsWrap.querySelectorAll('button').forEach((btn,i)=>{
+        btn.addEventListener('click', ()=>{ stop(); show(i); start(); });
+      });
+      dotsWrap.querySelectorAll('button')[idx]?.classList.add('active');
+    }
+    // Pause on hover/focus within hero
+    if(hero){
+      hero.addEventListener('mouseenter', stop);
+      hero.addEventListener('mouseleave', start);
+      hero.addEventListener('focusin', stop);
+      hero.addEventListener('focusout', start);
+    }
+    start();
   }
 
   // Accent hue/lightness shift on scroll
