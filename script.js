@@ -316,6 +316,18 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  // WhatsApp Group join for memberships
+  const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/HGxmFavBQUSAdRWbY66w5u?mode=wwt'; // Lien du groupe fourni
+  document.querySelectorAll('[data-join-whatsapp="group"]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const url = WHATSAPP_GROUP_URL && !WHATSAPP_GROUP_URL.includes('REPLACE')
+        ? WHATSAPP_GROUP_URL
+        : 'https://wa.me/241077739097';
+      window.open(url, '_blank', 'noopener');
+    });
+  });
+
   // Header shadow on scroll
   const header = document.querySelector('.site-header');
   const setHeaderShadow = () => {
@@ -328,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Scroll-spy for nav links
   const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
-  const sections = ['services','pricing','gallery','videos','contact']
+  const sections = ['services','pricing','gallery','about','contact']
     .map(id => document.getElementById(id))
     .filter(Boolean);
   if('IntersectionObserver' in window && sections.length){
