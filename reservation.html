@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation en ligne - Home Nail's 241</title>
+  <meta name="description" content="Réservez et payez en ligne vos soins de manucure, pédicure et nail art à Libreville. Paiement sécurisé.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Stripe Elements -->
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Styles spécifiques à la page de réservation */
+    .booking-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .booking-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .booking-summary {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      position: sticky;
+      top: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #ff6b6b;
+      box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+    }
+    
+    .service-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .service-info h4 {
+      margin: 0 0 0.25rem 0;
+      color: #333;
+    }
+    
+    .service-price {
+      font-weight: 600;
+      color: #ff6b6b;
+    }
+    
+    .total-amount {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #333;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eee;
+    }
+    
+    /* Style pour les éléments de paiement Stripe */
+    #card-element {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+    }
+    
+    #card-errors {
+      color: #e74c3c;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    /* Bouton de soumission */
+    #submit-payment {
+      width: 100%;
+      padding: 1rem;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    #submit-payment:hover {
+      background: #ff5252;
+    }
+    
+    #submit-payment:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .booking-summary {
+        position: static;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/logo.svg" alt="Home Nail's 241" class="logo" width="32" height="32">
+        <span>Home Nail's 241</span>
+      </a>
+      <nav class="main-nav" role="navigation">
+        <ul id="nav-list">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#gallery">Galerie</a></li>
+          <li><a href="index.html#testimonials">Témoignages</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="reservation.html" class="btn primary">Réserver</a></li>
+        </ul>
+      </nav>
+      <button id="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-list">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="booking-container">
+    <h1 class="section-title">Réservation en ligne</h1>
+    <p class="lead">Choisissez votre prestation et complétez votre réservation en toute sécurité.</p>
+    
+    <div class="booking-grid">
+      <div class="booking-form">
+        <h2>Détails de la réservation</h2>
+        
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="service">Service</label>
+            <select id="service" class="form-control" required>
+              <option value="" disabled selected>Sélectionnez un service</option>
+              <option value="manucure">Manucure complète - 10 000 FCFA</option>
+              <option value="pedicure">Pédicure spa - 15 000 FCFA</option>
+              <option value="nailart">Nail art - 8 000 FCFA</option>
+              <option value="combo">Forfait complet - 25 000 FCFA</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="date">Date et heure</label>
+            <input type="datetime-local" id="date" class="form-control" required>
+          </div>
+          
+          <h3>Informations personnelles</h3>
+          
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Notes supplémentaires (optionnel)</label>
+            <textarea id="notes" class="form-control" rows="3"></textarea>
+          </div>
+          
+          <h3>Paiement sécurisé</h3>
+          <p>Paiement 100% sécurisé avec Stripe</p>
+          
+          <div id="card-element">
+            <!-- Stripe Card Element sera inséré ici -->
+          </div>
+          
+          <div id="card-errors" role="alert"></div>
+          
+          <button type="submit" id="submit-payment" disabled>
+            <span id="button-text">Payer maintenant</span>
+            <span id="spinner" class="hidden">Traitement...</span>
+          </button>
+          
+          <p class="small-text" style="margin-top: 1rem; font-size: 0.8rem; color: #666;">
+            En cliquant sur "Payer maintenant", vous acceptez nos <a href="#" style="color: #ff6b6b;">conditions générales</a>.
+          </p>
+        </form>
+      </div>
+      
+      <div class="booking-summary">
+        <h2>Récapitulatif</h2>
+        <div id="selected-services">
+          <p>Sélectionnez un service pour commencer</p>
+        </div>
+        <div class="total-amount">
+          Total: <span id="total-amount">0 FCFA</span>
+        </div>
+        
+        <div style="margin-top: 2rem; background: #f0f0f0; padding: 1rem; border-radius: 5px;">
+          <h3>Paiement sécurisé</h3>
+          <p><i class="fas fa-lock" style="color: #4CAF50;"></i> Paiement 100% sécurisé</p>
+          <p><i class="fas fa-credit-card"></i> Cartes acceptées: Visa, Mastercard, etc.</p>
+          <p><i class="fas fa-shield-alt"></i> Aucune donnée bancaire n'est stockée sur nos serveurs</p>
+        </div>
+        
+        <div style="margin-top: 2rem; font-size: 0.9rem; color: #666; line-height: 1.6;">
+          <p><strong>Annulation gratuite</strong> jusqu'à 24h avant le rendez-vous.</p>
+          <p>Pour toute question, contactez-nous au <a href="tel:+241077739097" style="color: #ff6b6b;">+241 07 77 39 09 7</a>.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <small id="footer-text">
+        <img class="logo" src="assets/logo.svg" alt="Home Nail's 241" width="18" height="18" style="vertical-align:middle;margin-right:6px"/>
+        Home Nail's 241 — Libreville, Gabon • Site réalisé avec amour à Libreville • 
+        <a href="#" style="color: inherit;">Politique de confidentialité</a>
+      </small>
+    </div>
+  </footer>
+  
+  <a class="fab" id="fab-chat" href="https://wa.me/241077739097" target="_blank" aria-label="Chat WhatsApp">
+    <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/whatsapp.svg" alt="" aria-hidden="true" width="24" height="24"/>
+  </a>
+
+  <script>
+    // Configuration de base
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialisation du menu mobile
+      const menuToggle = document.getElementById('menu-toggle');
+      const navList = document.getElementById('nav-list');
+      
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+          this.setAttribute('aria-expanded', !expanded);
+          navList.classList.toggle('show');
+        });
+      }
+      
+      // Configuration de la date minimale (aujourd'hui)
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      
+      // Format YYYY-MM-DD
+      const minDate = tomorrow.toISOString().split('T')[0];
+      document.getElementById('date').min = minDate + 'T09:00';
+      document.getElementById('date').max = minDate + 'T18:00';
+      
+      // Mise à jour du récapitulatif
+      const serviceSelect = document.getElementById('service');
+      const selectedServices = document.getElementById('selected-services');
+      const totalAmount = document.getElementById('total-amount');
+      
+      const services = {
+        manucure: { name: 'Manucure complète', price: 10000 },
+        pedicure: { name: 'Pédicure spa', price: 15000 },
+        nailart: { name: 'Nail art', price: 8000 },
+        combo: { name: 'Forfait complet', price: 25000 }
+      };
+      
+      serviceSelect.addEventListener('change', function() {
+        const selectedService = this.value;
+        if (selectedService && services[selectedService]) {
+          const service = services[selectedService];
+          selectedServices.innerHTML = `
+            <div class="service-item">
+              <div class="service-info">
+                <h4>${service.name}</h4>
+                <p>Durée: 1h</p>
+              </div>
+              <div class="service-price">${service.price.toLocaleString()} FCFA</div>
+            </div>
+          `;
+          totalAmount.textContent = `${service.price.toLocaleString()} FCFA`;
+          
+          // Activer le bouton de paiement
+          document.getElementById('submit-payment').disabled = false;
+        } else {
+          selectedServices.innerHTML = '<p>Sélectionnez un service pour commencer</p>';
+          totalAmount.textContent = '0 FCFA';
+          document.getElementById('submit-payment').disabled = true;
+        }
+      });
+      
+      // Initialisation de Stripe (à remplacer par votre clé publique)
+      const stripe = Stripe('pk_test_votre_cle_publique_stripe');
+      const elements = stripe.elements();
+      const card = elements.create('card', {
+        style: {
+          base: {
+            fontSize: '16px',
+            color: '#32325d',
+            '::placeholder': {
+              color: '#aab7c4'
+            }
+          },
+          invalid: {
+            color: '#e74c3c',
+            iconColor: '#e74c3c'
+          }
+        }
+      });
+      
+      card.mount('#card-element');
+      
+      // Gestion des erreurs de carte
+      card.on('change', function(event) {
+        const displayError = document.getElementById('card-errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+      
+      // Soumission du formulaire
+      const form = document.getElementById('booking-form');
+      
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const submitButton = document.getElementById('submit-payment');
+        submitButton.disabled = true;
+        document.getElementById('spinner').classList.remove('hidden');
+        document.getElementById('button-text').classList.add('hidden');
+        
+        // Créer un token de paiement avec Stripe
+        const { token, error } = await stripe.createToken(card);
+        
+        if (error) {
+          const errorElement = document.getElementById('card-errors');
+          errorElement.textContent = error.message;
+          submitButton.disabled = false;
+          document.getElementById('spinner').classList.add('hidden');
+          document.getElementById('button-text').classList.remove('hidden');
+        } else {
+          // Ici, vous enverriez normalement le token à votre serveur
+          // pour traiter le paiement et confirmer la réservation
+          console.log('Token de paiement:', token);
+          
+          // Simulation d'un paiement réussi
+          setTimeout(() => {
+            // Redirection vers une page de confirmation
+            window.location.href = 'confirmation.html';
+          }, 1500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

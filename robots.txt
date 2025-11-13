@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Sitemap: https://homenails241.com/sitemap.xml
+
+# Désactiver l'indexation des dossiers système
+Disallow: /assets/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /vendor/
+
+# Autoriser les moteurs à explorer tous les fichiers CSS et JS
+Allow: /*.css$
+Allow: /*.js$

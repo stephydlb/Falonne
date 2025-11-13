@@ -338,23 +338,97 @@ document.addEventListener('DOMContentLoaded', function(){
   setHeaderShadow();
   window.addEventListener('scroll', setHeaderShadow, {passive:true});
 
-  // Scroll-spy for nav links
-  const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
-  const sections = ['services','pricing','gallery','about','contact']
-    .map(id => document.getElementById(id))
-    .filter(Boolean);
-  if('IntersectionObserver' in window && sections.length){
-    const spy = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        const id = entry.target.id;
-        const link = navLinks.find(a => a.getAttribute('href') === `#${id}`);
-        if(!link) return;
-        if(entry.isIntersecting){
-          navLinks.forEach(a=>a.classList.remove('active'));
-          link.classList.add('active');
+  // Navigation spy pour la mise en surbrillance des liens de navigation
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  
+  if (sections.length > 0 && navLinks.length > 0) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
         }
       });
-    }, {threshold:0.5, rootMargin:'-20% 0px -60% 0px'});
-    sections.forEach(sec=>spy.observe(sec));
+    }, {threshold: 0.5, rootMargin: '-20% 0px -60% 0px'});
+    
+    sections.forEach(sec => spy.observe(sec));
+  }
+
+  // Initialisation de la carte (chargement différé)
+  let map = null;
+  let mapInitialized = false;
+  
+  // Coordonnées du salon (à remplacer par les vraies coordonnées)
+  const SALON_LOCATION = [0.4162, 9.4673]; // Libreville par défaut
+  
+  // Fonction d'initialisation de la carte
+  function initMap() {
+    if (mapInitialized || !document.getElementById('map')) return;
+    
+    map = L.map('map').setView(SALON_LOCATION, 15);
+    
+    // Utilisation de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    }).addTo(map);
+    
+    // Ajout d'un marqueur personnalisé
+    const salonIcon = L.divIcon({
+      html: '<i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #ff6b6b;"></i>',
+      className: 'custom-marker',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30]
+    });
+    
+    L.marker(SALON_LOCATION, {icon: salonIcon})
+      .addTo(map)
+      .bindPopup('Home Nail\'s 241<br>Quartier Louis, Libreville')
+      .openPopup();
+    
+    // Ajout du contrôle de recherche
+    L.Control.geocoder({
+      defaultMarkGeocode: false,
+      placeholder: 'Rechercher une adresse...',
+      errorMessage: 'Aucun résultat trouvé.',
+      showResult: function(geocoder, result) {
+        map.fitBounds(result.bbox);
+      }
+    }).addTo(map);
+    
+    mapInitialized = true;
+  }
+  
+  // Gestion du chargement différé de la carte
+  const loadMapBtn = document.getElementById('load-map');
+  const mapOverlay = document.getElementById('map-overlay');
+  
+  if (loadMapBtn && mapOverlay) {
+    loadMapBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      mapOverlay.classList.add('hidden');
+      
+      // Chargement dynamique de la bibliothèque Leaflet si elle n'est pas déjà chargée
+      if (typeof L === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+        script.crossOrigin = '';
+        script.onload = function() {
+          // Une fois Leaflet chargé, initialiser la carte
+          initMap();
+        };
+        document.head.appendChild(script);
+      } else {
+        // Si Leaflet est déjà chargé, initialiser directement la carte
+        initMap();
+      }
+    });
   }
 });

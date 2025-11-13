@@ -1,0 +1,131 @@
+# Dossiers à ignorer
+node_modules/
+dist/
+.vscode/
+.idea/
+
+# Fichiers de dépendances
+package-lock.json
+yarn.lock
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers de débogage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de couverture de test
+coverage/
+
+# Fichiers de build
+build/
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Fichiers de cache
+.cache/
+
+# Fichiers de configuration personnelle
+*.code-workspace
+
+# Fichiers de l'éditeur
+*.sublime-*
+*.sublime-workspace
+
+# Fichiers de sauvegarde
+*~
+*.swp
+*.swo
+
+# Fichiers de l'IDE
+.idea/
+*.sublime-workspace
+
+# Fichiers de déploiement
+.vercel
+.netlify
+
+# Fichiers de dépendances système
+.pnp.*
+
+# Fichiers de dépendances optionnelles
+.pnp.js
+
+# Fichiers de configuration locale
+.eslintcache
+
+# Fichiers de test
+__tests__/
+__mocks__/
+*.test.js
+*.spec.js
+
+# Fichiers de documentation
+/docs
+
+# Fichiers de déploiement
+/.deploy
+
+# Fichiers de configuration personnalisés
+/.vscode
+
+# Fichiers de cache de dépendances
+/.pnp
+/.pnp.js
+
+# Fichiers de configuration de l'éditeur
+/.idea
+/.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Fichiers de cache de dépendances locales
+.pnp/
+.pnp.js
+
+# Fichiers de configuration de débogage
+.vscode/
+
+# Fichiers de configuration de l'éditeur
+.idea/
+*.sublime-*
+
+# Fichiers de cache de dépendances
+.cache/
+
+# Fichiers de dépendances
+node_modules/
+
+# Fichiers de build
+dist/
+build/
+out/
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers de logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers système
+.DS_Store
+Thumbs.db

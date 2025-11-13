@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
+  <meta name="color-scheme" content="light dark">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home Nail's 241 — Manucure & Pédicure • Libreville</title>
@@ -25,6 +26,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#F4C2C2">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -80,11 +84,12 @@
   }
   </script>
 </head>
-<body>
-  <header class="site-header">
+<body aria-live="polite" aria-atomic="true">
+  <header class="site-header" role="banner">
     <div class="container header-inner">
       <div class="brand">
-        <img class="logo" src="assets/logo.svg" alt="Home Nail's 241 logo" width="36" height="36" />
+        <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+        <img class="logo" src="assets/logo.svg" alt="Home Nail's 241 - Retour à l'accueil" width="36" height="36" aria-hidden="true" />
         <h1>Home Nail's 241</h1>
         <p class="tag">Manucure • Pédicure — Libreville</p>
       </div>
@@ -94,8 +99,9 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#pricing">Tarifs</a></li>
           <li><a href="#gallery">Galerie</a></li>
+          <li><a href="reservation.html" class="btn primary">Réserver</a></li>
           <li><a href="#about">À propos</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="contact.html" class="btn primary">Contact</a></li>
         </ul>
         <div class="controls">
           <select id="lang-select" aria-label="Langue">
@@ -358,6 +364,68 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section testimonials">
+    <div class="container">
+      <h3 class="reveal">Ce que disent nos clients</h3>
+      <div class="testimonial-cards">
+        <!-- Témoignage 1 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-content">
+            <div class="testimonial-text">
+              <p>Des soins de qualité exceptionnelle ! Je recommande vivement Home Nail's 241 pour leur professionnalisme et leur créativité. Mes ongles n'ont jamais été aussi beaux.</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Photo de Marie D." class="testimonial-avatar" width="50" height="50" loading="lazy">
+              <div class="testimonial-info">
+                <h4>Marie D.</h4>
+                <div class="testimonial-rating" aria-label="Note : 5 étoiles">★★★★★</div>
+                <div class="testimonial-date">15 oct. 2025</div>
+              </div>
+            </div>
+            <span class="testimonial-category">Manucure</span>
+          </div>
+        </div>
+
+        <!-- Témoignage 2 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-content">
+            <div class="testimonial-text">
+              <p>Un accueil chaleureux et des prestations irréprochables. Le soin des pieds est un véritable moment de détente. Je ne vais plus ailleurs maintenant !</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Photo de Sophie K." class="testimonial-avatar" width="50" height="50" loading="lazy">
+              <div class="testimonial-info">
+                <h4>Sophie K.</h4>
+                <div class="testimonial-rating" aria-label="Note : 5 étoiles">★★★★★</div>
+                <div class="testimonial-date">2 nov. 2025</div>
+              </div>
+            </div>
+            <span class="testimonial-category">Pédicure Spa</span>
+          </div>
+        </div>
+
+        <!-- Témoignage 3 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-content">
+            <div class="testimonial-text">
+              <p>Des créations uniques et une grande précision dans le nail art. J'ai reçu de nombreux compliments sur mes ongles. Service au top !</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Photo de Clara M." class="testimonial-avatar" width="50" height="50" loading="lazy">
+              <div class="testimonial-info">
+                <h4>Clara M.</h4>
+                <div class="testimonial-rating" aria-label="Note : 5 étoiles">★★★★★</div>
+                <div class="testimonial-date">28 oct. 2025</div>
+              </div>
+            </div>
+            <span class="testimonial-category">Nail Art</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MEMBERSHIPS -->
   <section id="memberships" class="section">
     <div class="container">
@@ -452,9 +520,60 @@
     </div>
   </section>
 
-  <footer class="site-footer">
+  <!-- LOCALISATION -->
+  <section id="localisation" class="section location-section">
     <div class="container">
-      <small id="footer-text"><img class="logo" src="assets/logo.svg" alt="Home Nail's 241" width="18" height="18" style="vertical-align:middle;margin-right:6px"/>© <strong>Home Nail's 241</strong> — Libreville, Gabon • Site réalisé avec amour à Libreville • Politique de confidentialité (bientôt)</small>
+      <h3 class="reveal">Nous Trouver</h3>
+      <p class="lead reveal">Venez nous rencontrer dans notre salon à Libreville</p>
+      
+      <div class="location-grid">
+        <div class="location-info reveal">
+          <div class="info-box">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Adresse</h4>
+              <p>Quartier Louis, Libreville<br>Gabon</p>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Téléphone</h4>
+              <p><a href="tel:+241077739097">+241 07 77 39 09 7</a></p>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Horaires</h4>
+              <p>Lundi - Samedi : 9h - 19h<br>Dimanche : Fermé</p>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <i class="fas fa-bus"></i>
+            <div>
+              <h4>Transport</h4>
+              <p>Station de bus à 5 min à pied<br>Parking disponible à proximité</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="map-container reveal">
+          <div id="map"></div>
+          <div class="map-overlay" id="map-overlay">
+            <button id="load-map" class="btn primary">Afficher la carte</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <small id="footer-text"><img class="logo" src="assets/logo.svg" alt="Home Nail's 241" width="18" height="18" style="vertical-align:middle;margin-right:6px"/>  Home Nail's 241 — Libreville, Gabon • Site réalisé avec amour à Libreville • Politique de confidentialité (bientôt)</small>
     </div>
   </footer>
 
@@ -462,6 +581,8 @@
     <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/whatsapp.svg" alt="" aria-hidden="true" width="24" height="24"/>
   </a>
 
-  <script src="script.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
